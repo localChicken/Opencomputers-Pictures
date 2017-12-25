@@ -31,7 +31,10 @@ end
 --Switches
 local switch1 = mainContainer:addChild(GUI.switch(55,10,8,0x66DB80,0x1D1D1D,0xEEEEEE,true))
 switch1.onStateChanged = function(state)
-	print(state[])
+	for f < 6 do
+		f = f + 1
+		print(state[f])
+	end
 end
 --Drawing
 mainContainer:draw()
