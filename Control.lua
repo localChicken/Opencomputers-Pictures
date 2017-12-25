@@ -3,6 +3,7 @@ local buffer = require("doubleBuffering")
 local component = require("component")
 local reactor = {}
 local auto = false
+local min, max = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 --MainContainer
 local mainContainer = GUI.fullScreenContainer()
@@ -23,17 +24,24 @@ mainContainer:addChild(GUI.button(64,2,60,6,0xFFFFFF,0x555555,0xAAAAAA,0x2D2D2D,
   reactor[1].setActive(false)
 end
 --Slider
-local slider = mainContainer:addChild(GUI.slider(4,10,30,0x66DB80,0x000000,0xFFFFFF,0xAAAAAA,1,10000000,5000000,true,"Prefix: "," postfix."))
+local slider = mainContainer:addChild(GUI.slider(4,10,30,0x66DB80,0x000000,0xFFFFFF,0xAAAAAA,1,10000000,5000000,true,"Minimum limit: "," ."))
 slider.roundValues=true
 slider.onValueChanged = function (value)
-print(value)
+min = value
+end
+local slider1 = mainContainer:addChild(GUI.slider(4,15,30,0x66DB80,0x000000,0xFFFFFF,0xAAAAAA,1,10000000,5000000,true,"Maximum limit: "," ."))
+slider1.roundValues=true
+slider1.onValueChanged = function (value)
+max = value
 end
 --Switches
 local switch1 = mainContainer:addChild(GUI.switch(55,10,8,0x66DB80,0x1D1D1D,0xEEEEEE,true))
-switch1.onStateChanged = function(state)
-	for f < 6 do
-		f = f + 1
-		print(state[f])
+switch1.onStateChanged = function(switch,state)
+	auto = switch1.state
+	if auto == true then
+		GUI.error(max)
+	else
+		GUI.error(min)
 	end
 end
 --Drawing
